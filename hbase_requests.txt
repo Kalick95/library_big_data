@@ -1,0 +1,58 @@
+#CRUD
+
+#CREATE ( INSERT BOOK IN LIBRARY )
+
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:ISBN','1-11-111111-1'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Langue','Anglais'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Titre','Le livre du CRUD'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Editeur','FAZIL-KONING'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Date','2021'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Collection','ECE Paris Books'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Titre_de_serie','Serie KT'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Numero','1'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Auteur_Dates','1999-2102'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Dates','1999-2025'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library','1','details:Auteur_secondaire_Dates','1999-20105'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Auteur_secondaire','Rami,Molo'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Co-auteur','Paul'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Auteur','Toussaint, Allen'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Categorie_statistique_1','D103 Psychologie'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Nombre_dexemplaires','14'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Nombre_de_pret_annee_2018_au_26_juillet_2018','4'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Nombre_de_prets_2017','0'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Nombre_de_pret_total','14'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Nombre_de_localisation','10'
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Type_de_document','Livre pour adultes'
+
+
+#READ ( GET BOOK 1)
+
+get 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library', '1'
+
+#GET TITLE OF BOOK 1
+
+get 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library', '1', {COLUMN => 'details:Titre'}
+
+
+#UPDATE (CHANGE TYPE DE DOCUMENT BOOK 1)
+put 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library',1,'details:Type_de_document','DVD'
+
+#GET NEW TYPE DE DOCUMENT
+get 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library', '1', {COLUMN => 'details:Type_de_document'}
+
+#DELETE 
+
+delete 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library', '1002670', 'details:Langue'
+
+# VERIFY IF DELETED
+
+get 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library', '1002670', {COLUMN => 'details:Langue'}
+
+
+# FILTER TO GET BOOK WITH TITRE == 'Le livre du CRUD'
+
+scan 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library', { FILTER => "SingleColumnValueFilter('details', 'Titre', =,'binary:Le livre du CRUD')"}
+
+# FILTER TO GET NOMBRE DE PRET > 2000
+
+scan 'ece_2021_fall_app_1:fazil_koning_hbase_hive_library', { FILTER => "SingleColumnValueFilter('details', 'Nombre_de_pret_total', =,'binary:817')"}
